@@ -5,10 +5,10 @@ using Items;
 
 public class EquipmentSlot : ItemSlot, IPointerEnterHandler, IPointerExitHandler
 {
-    private bool _pointerOverSlot;
+   
+    [SerializeField] private EquipmentSlotType _equipmentSlotType;
     private Color _defaultColor;
     private Sprite _defaultSprite;
-    [SerializeField] private EquipmentSlotType _equipmentSlotType;
 
     public EquipmentSlotType EquipmentSlotType => _equipmentSlotType;
 
@@ -28,19 +28,24 @@ public class EquipmentSlot : ItemSlot, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //Item item = PlayerCreature.PlayerInventoryController.MovingItem;
+        Item item = PlayerCreature.PlayerInventoryController.MovingItem;
 
-        //if(item!= null)
-        //{
-        //    if ((item is Equipment) || ItemHelper.CanBeEquiped((item as Equipment).EquipmentBase.EquipmentType, _equipmentSlotType))
-        //        SetSlotInteractability(false);
-        //}
+        if (item != null)
+        {
+            if (!(item is Equipment) || !ItemHelper.CanBeEquiped((item as Equipment).EquipmentBase.EquipmentType, _equipmentSlotType))
+                SetSlotInteractability(false);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (IsEquiped)
-            SetSlotInteractability(true);
+        SetSlotInteractability(true);
+    }
+
+    protected void SetSlotInteractability(bool isInteractable)
+    {
+        _slotImage.color = !isInteractable ? Color.red : IsEquiped ? Color.white : _defaultColor;
+        SlotInteractable = isInteractable;
     }
 
     protected override void OnLeftPoiterDown()

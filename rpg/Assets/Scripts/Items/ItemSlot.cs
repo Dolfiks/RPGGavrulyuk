@@ -9,8 +9,6 @@ public class ItemSlot : MonoBehaviour, IPointerDownHandler
     [SerializeField] protected Image _slotImage;
     public bool IsEquiped { get; private set; }
     public Item SlotItem { get; private set; }
-    public Image SlotImage => _slotImage;
-
     public bool SlotInteractable { get; protected set; }
     public PlayerCreature PlayerCreature { get; set; }
 
@@ -49,11 +47,6 @@ public class ItemSlot : MonoBehaviour, IPointerDownHandler
                 return;
             OnRightPointerDown();
         }
-    }
-
-    protected void SetSlotInteractability(bool isInteractable)
-    {
-        _slotImage.color = !isInteractable ? Color.red : IsEquiped ? Color.white : Color.clear;
     }
 
     protected virtual void OnLeftPoiterDown()

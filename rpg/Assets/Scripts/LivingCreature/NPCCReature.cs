@@ -2,11 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCCReature : Interactable
+public class NPCCReature : LivingCreature
 {
-    protected override void Interact()
-    {
-        base.Interact();
-        Debug.Log("Hi Bro, go to chat");
-    }
+    
 }
